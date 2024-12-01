@@ -5,6 +5,7 @@ import iziToast from "izitoast";
 import "izitoast/dist/css/iziToast.min.css";
 import getPictures from "./js/pixabay-apy";
 import createMurkup from "./js/render-funkcions";
+
 const litebox = new SimpleLightbox('.list-js a', {
   captionsData: 'alt',
   captionDelay: 250,
@@ -53,6 +54,13 @@ loader.classList.remove("hidden");
             
         })
 }
+
+
+
+
+
+
+
 
 
 
