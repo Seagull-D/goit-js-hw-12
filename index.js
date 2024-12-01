@@ -1,0 +1,11 @@
+import{S as p,i as u}from"./assets/vendor-BrddEoy-.js";(function(){const s=document.createElement("link").relList;if(s&&s.supports&&s.supports("modulepreload"))return;for(const e of document.querySelectorAll('link[rel="modulepreload"]'))r(e);new MutationObserver(e=>{for(const t of e)if(t.type==="childList")for(const n of t.addedNodes)n.tagName==="LINK"&&n.rel==="modulepreload"&&r(n)}).observe(document,{childList:!0,subtree:!0});function i(e){const t={};return e.integrity&&(t.integrity=e.integrity),e.referrerPolicy&&(t.referrerPolicy=e.referrerPolicy),e.crossOrigin==="use-credentials"?t.credentials="include":e.crossOrigin==="anonymous"?t.credentials="omit":t.credentials="same-origin",t}function r(e){if(e.ep)return;e.ep=!0;const t=i(e);fetch(e.href,t)}})();function m(o){return fetch(`https://pixabay.com/api/?q=${o}&image_type=photo&orientation=horizontal&safesearch=true&key=47380819-2a2ad5e165b633e18b6fd0fd3`).then(r=>{if(!r.ok)throw new Error(r.statusText);return r.json()})}function d(o){return o.map(({webformatURL:s,largeImageURL:i,tags:r,likes:e,views:t,comments:n,downloads:l})=>`<li class="list-item" >
+  <a href="${i}" alt="${r}" title=""/>
+    <img src="${s}" alt="${r}" class="img-item">
+  <div class="list-container">
+  <p class="item"><span class="item-text">Likes</span> <span>${e}</span></p>
+  <p class="item"><span class="item-text">Wiews</span> <span>${t}</span></p>
+  <p class="item"><span class="item-text">Comments</span> <span>${n}</span></p>
+  <p class="item"><span class="item-text">Downlods</span> <span>${l}</span></p>
+  </div></a>
+</li>`).join("")}const f=new p(".list-js a",{captionsData:"alt",captionDelay:250,captionClass:"imageTitle"}),h=document.querySelector(".form-js"),a=document.querySelector(".list-js"),c=document.querySelector(".loader");h.addEventListener("submit",y);function y(o){o.preventDefault();const{picture:s}=o.target.elements;s.value&&console.dir(s.value),a.innerHTML="",c.classList.remove("hidden"),m(s.value).then(i=>{i.hits.length?(a.innerHTML=d(i.hits),f.refresh()):(u.show({title:"X",message:"Sorry, there are no images matching your search query. Please try again!",position:"center",color:"red"}),a.innerHTML="<h1>Ooops... 👻</h1>")}).catch(i=>console.log(i.message)).finally(()=>{s.value="",c.classList.add("hidden")})}
+//# sourceMappingURL=index.js.map
