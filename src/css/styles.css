@@ -173,3 +173,20 @@ margin-bottom: 30px;
 .hidden {
   display: none;
 }
+
+
+.more-btn {
+  display: flex;
+   justify-content: center;
+  align-items: center;
+  color: #FFFFFF;
+  display: flex;
+  margin: auto;
+  width: 125px;
+    height: 40px;
+   background-color: #4E75FF;
+      padding: 8px 16px 8px 16px;
+    gap: 10px;
+    border-radius: 8px
+ 
+}
