@@ -14,7 +14,7 @@ const litebox = new SimpleLightbox('.list-js a', {
 const form = document.querySelector(".form-js");
 const list = document.querySelector(".list-js");
 const loader = document.querySelector(".loader");
-const loadBtn = document.querySelector(".js-load-btn")
+const loadBtn = document.querySelector(".js-load-btn");
 
 
 form.addEventListener("submit", toSabmit);
@@ -47,9 +47,10 @@ function toSabmit(evt) {
    loadBtn.classList.replace("more-btn", "hidden");
     getPictures(value,page)
     
-        .then(({ data: { hits } }) => {
+        .then(({ data: { hits, totalHits
+        } }) => {
             page = 1
-      
+       let totalPage = Math.ceil(totalHits / hits.length);
            console.log(page)
             
             if (!hits.length) { iziToast.show({
@@ -60,7 +61,10 @@ function toSabmit(evt) {
             });
                 
                 list.innerHTML = "<h1>Ooops... 👻</h1>";
-                loadBtn.classList.replace("more-btn", "hidden");
+                
+                if (page >= totalPage || !totalHits) {
+                    loadBtn.classList.replace("more-btn", "hidden")
+                }
                 
             }
             else {
@@ -91,24 +95,42 @@ function toSabmit(evt) {
 }
 async function onLoadMore() {
     page += 1;
-    console.log(page)
+    loadBtn.disabled = true;
     try { 
         const { data: { hits, totalHits
         } } = await getPictures(page);
         console.log(hits, totalHits); 
         list.insertAdjacentHTML("beforeend", createMurkup(hits));
-         let totalPage = Math.round(totalHits / hits.length);
+        let totalPage = Math.ceil(totalHits / hits.length);
+        
+
         if (page >= totalPage || !totalHits) {
             loadBtn.classList.replace("more-btn", "hidden");
               iziToast.show({
       title:"X",         
-      message: "We're sorry, but you've reached the end of search results.",
+      message: "Sorry, there are no images matching your search query. Please try again!",
       position: "center",
       color: "red"
             });  
         }
+        const item = document.querySelector(".list-item");
+        const itemHeight = item.getBoundingClientRect().height;
+        window.scrollBy({
+            left: 0,
+            top: itemHeight * 2,
+            behavior: "smooth",
+        })
     }
-    catch(error){console.log(error.message)}
+    catch (error) {
+        console.log(error.message);
+        iziToast.show({
+      title:"X",         
+      message: `${error.message}`,
+      position: "center",
+      color: "red"
+            });  
+     }
+    finally{ loadBtn.disabled = false;}
 }
 
 
