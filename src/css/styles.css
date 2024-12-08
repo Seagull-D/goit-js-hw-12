@@ -79,6 +79,7 @@ transition: all 0.5s ;
 }
 .list-item{
   border: 1px solid black;
+
 }
 
 .list-container{
@@ -177,12 +178,14 @@ margin-bottom: 30px;
 
 .more-btn {
   margin-top: 32px ;
+  margin-left: auto;
+  margin-right: auto;
   display: flex;
    justify-content: center;
   align-items: center;
   color: #FFFFFF;
   display: flex;
-  margin: auto;
+
   width: 125px;
     height: 40px;
    background-color: #4E75FF;
