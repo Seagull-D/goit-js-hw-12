@@ -99,7 +99,7 @@ async function onLoadMore() {
     try { 
         const { data: { hits, totalHits
         } } = await getPictures(page);
-        console.log(hits, totalHits); 
+      
         list.insertAdjacentHTML("beforeend", createMurkup(hits));
         let totalPage = Math.ceil(totalHits / hits.length);
         
