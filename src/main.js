@@ -51,7 +51,7 @@ function toSabmit(evt) {
         } }) => {
             page = 1
        let totalPage = Math.ceil(totalHits / hits.length);
-           console.log(page)
+         
             
             if (!hits.length) { iziToast.show({
       title:"X",         
