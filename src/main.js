@@ -20,6 +20,7 @@ const loadBtn = document.querySelector(".js-load-btn");
 form.addEventListener("submit", toSabmit);
 loadBtn.addEventListener("click", onLoadMore)
 let page = 1;
+let totalPage = 1;
 
 
 function toSabmit(evt) {
@@ -42,6 +43,7 @@ function toSabmit(evt) {
             }
     }
   
+    page = 1
     
     loader.classList.remove("hidden");
    loadBtn.classList.replace("more-btn", "hidden");
@@ -49,9 +51,9 @@ function toSabmit(evt) {
     
         .then(({ data: { hits, totalHits
         } }) => {
-            page = 1
-       let totalPage = Math.ceil(totalHits / hits.length);
-         
+            
+       totalPage = Math.ceil(totalHits / hits.length);
+       console.log(page) 
             
             if (!hits.length) { iziToast.show({
       title:"X",         
@@ -61,16 +63,15 @@ function toSabmit(evt) {
             });
                 
                 list.innerHTML = "<h1>Ooops... 👻</h1>";
-                
-                if (page >= totalPage || !totalHits) {
-                    loadBtn.classList.replace("more-btn", "hidden")
-                }
+                               
                 
             }
             else {
                 list.innerHTML = createMurkup(hits);
                 litebox.refresh(); 
-              
+              if (page >= totalPage ) {
+                    loadBtn.classList.replace("more-btn", "hidden")
+                }
                 loadBtn.classList.replace("hidden", "more-btn");
                
                  
@@ -95,13 +96,15 @@ function toSabmit(evt) {
 }
 async function onLoadMore() {
     page += 1;
+    console.log(page)
     loadBtn.disabled = true;
     try { 
         const { data: { hits, totalHits
         } } = await getPictures(page);
       
         list.insertAdjacentHTML("beforeend", createMurkup(hits));
-        let totalPage = Math.ceil(totalHits / hits.length);
+        totalPage = Math.ceil(totalHits / hits.length);
+        console.log(totalPage)
         
 
         if (page >= totalPage || !totalHits) {
@@ -120,6 +123,7 @@ async function onLoadMore() {
             top: itemHeight * 2,
             behavior: "smooth",
         })
+        litebox.refresh()
     }
     catch (error) {
         console.log(error.message);
@@ -130,7 +134,9 @@ async function onLoadMore() {
       color: "red"
             });  
      }
-    finally{ loadBtn.disabled = false;}
+    finally {
+        loadBtn.disabled = false;
+    }
 }
 
 
