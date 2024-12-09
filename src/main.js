@@ -96,7 +96,7 @@ function toSabmit(evt) {
 }
 async function onLoadMore() {
     page += 1;
-    console.log(page)
+    
     loadBtn.disabled = true;
     try { 
         const { data: { hits, totalHits
@@ -104,7 +104,6 @@ async function onLoadMore() {
       
         list.insertAdjacentHTML("beforeend", createMurkup(hits));
         totalPage = Math.ceil(totalHits / hits.length);
-        console.log(totalPage)
         
 
         if (page >= totalPage || !totalHits) {
