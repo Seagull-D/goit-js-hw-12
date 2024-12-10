@@ -42,7 +42,7 @@ function toSabmit(evt) {
               
             }
     }
-  
+
     page = 1
     
     loader.classList.remove("hidden");
