@@ -71,8 +71,8 @@ function toSabmit(evt) {
                 litebox.refresh(); 
               if (page >= totalPage ) {
                     loadBtn.classList.replace("more-btn", "hidden")
-                }
-                loadBtn.classList.replace("hidden", "more-btn");
+                }else{loadBtn.classList.replace("hidden", "more-btn");}
+                
                
                  
                 }           
@@ -104,6 +104,7 @@ async function onLoadMore() {
       
         list.insertAdjacentHTML("beforeend", createMurkup(hits));
         totalPage = Math.ceil(totalHits / hits.length);
+        console.log(totalPage)
         
 
         if (page >= totalPage || !totalHits) {
