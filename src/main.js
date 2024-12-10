@@ -21,13 +21,13 @@ form.addEventListener("submit", toSabmit);
 loadBtn.addEventListener("click", onLoadMore)
 let page = 1;
 let totalPage = 1;
-
+let value
 
 function toSabmit(evt) {
     evt.preventDefault();
     
     const { picture } = evt.target.elements;
-    const value = picture.value.trim();
+    value = picture.value.trim();
     
      list.innerHTML = ""; 
     if(!value || value === " "){
@@ -53,7 +53,7 @@ function toSabmit(evt) {
         } }) => {
             
        totalPage = Math.ceil(totalHits / hits.length);
-       console.log(page) 
+      
             
             if (!hits.length) { iziToast.show({
       title:"X",         
@@ -100,7 +100,7 @@ async function onLoadMore() {
     loadBtn.disabled = true;
     try { 
         const { data: { hits, totalHits
-        } } = await getPictures(page);
+        } } = await getPictures(value,page);
       
         list.insertAdjacentHTML("beforeend", createMurkup(hits));
         totalPage = Math.ceil(totalHits / hits.length);
