@@ -54,7 +54,7 @@ function toSabmit(evt) {
         } }) => {
             
        totalPage = Math.ceil(totalHits / per_page);
-      console.log(totalPage)
+  
             
             if (!hits.length) { iziToast.show({
       title:"X",         
@@ -71,7 +71,7 @@ function toSabmit(evt) {
                 list.innerHTML = createMurkup(hits);
                 litebox.refresh(); 
                 if (page >= totalPage ) {
-                  console.log
+               
                     loadBtn.classList.replace("more-btn", "hidden")
                 }else{loadBtn.classList.replace("hidden", "more-btn");}
                 
@@ -107,11 +107,11 @@ async function onLoadMore() {
       
         list.insertAdjacentHTML("beforeend", createMurkup(hits));
         totalPage = Math.ceil(totalHits / per_page);
-        console.log(totalPage)
-          console.log(page)
+       
+        
 
         if (page === totalPage) {
-            console.log(page)
+          
             loadBtn.classList.replace("more-btn", "hidden");
               iziToast.show({
       title:"X",         
