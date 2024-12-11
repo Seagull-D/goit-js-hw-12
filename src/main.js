@@ -22,6 +22,7 @@ loadBtn.addEventListener("click", onLoadMore)
 let page = 1;
 let totalPage = 1;
 let value
+const per_page = 15;
 
 function toSabmit(evt) {
     evt.preventDefault();
@@ -47,13 +48,13 @@ function toSabmit(evt) {
     
     loader.classList.remove("hidden");
    loadBtn.classList.replace("more-btn", "hidden");
-    getPictures(value,page)
+    getPictures(value,page, per_page)
     
         .then(({ data: { hits, totalHits
         } }) => {
             
-       totalPage = Math.ceil(totalHits / hits.length);
-      
+       totalPage = Math.ceil(totalHits / per_page);
+      console.log(totalPage)
             
             if (!hits.length) { iziToast.show({
       title:"X",         
@@ -69,7 +70,8 @@ function toSabmit(evt) {
             else {
                 list.innerHTML = createMurkup(hits);
                 litebox.refresh(); 
-              if (page >= totalPage ) {
+                if (page >= totalPage ) {
+                  console.log
                     loadBtn.classList.replace("more-btn", "hidden")
                 }else{loadBtn.classList.replace("hidden", "more-btn");}
                 
@@ -98,16 +100,18 @@ async function onLoadMore() {
     page += 1;
     
     loadBtn.disabled = true;
+    loader.classList.add("hidden");
     try { 
         const { data: { hits, totalHits
-        } } = await getPictures(value,page);
+        } } = await getPictures(value,page,per_page);
       
         list.insertAdjacentHTML("beforeend", createMurkup(hits));
-        totalPage = Math.ceil(totalHits / hits.length);
+        totalPage = Math.ceil(totalHits / per_page);
         console.log(totalPage)
-        
+          console.log(page)
 
-        if (page >= totalPage || !totalHits) {
+        if (page === totalPage) {
+            console.log(page)
             loadBtn.classList.replace("more-btn", "hidden");
               iziToast.show({
       title:"X",         
@@ -136,6 +140,7 @@ async function onLoadMore() {
      }
     finally {
         loadBtn.disabled = false;
+          loader.classList.add("hidden");
     }
 }
 

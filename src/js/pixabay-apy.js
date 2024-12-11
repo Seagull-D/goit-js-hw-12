@@ -3,7 +3,7 @@ export default getPictures;
 import axios from 'axios';  
 
 
-async function getPictures(tag, page) {
+async function getPictures(tag, page, per_page) {
   
     //https://pixabay.com/api/?q=&image_type=photo&orientation=horizontal&safesearch=true&key=47380819-2a2ad5e165b633e18b6fd0fd3
     const API_URL = `https://pixabay.com/api`
@@ -12,7 +12,7 @@ async function getPictures(tag, page) {
     params: {
 
       page,
-      per_page: 15,
+      per_page,
     }
    });
   
